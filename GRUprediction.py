@@ -143,15 +143,8 @@ if __name__ == '__main__':
             print("%d epoch is finished!" % (batch_idx + 1))
             
         net = net.eval()
-
         cycleprediction.loss_curve(data_n, mean, scale, numPredSteps, num_repeat, ty, 0, net, use_cuda)
-        
-        color = 'g-'
-        la = 'T_GRU'
-        if ty:
-            color = 'r-'
-            la = 'ST_GRU'
-            DNNprediction.dnn_main(mean, scale, numPredSteps, num_repeat, data_n, use_cuda)
+        DNNprediction.dnn_main(mean, scale, numPredSteps, num_repeat, data_n, use_cuda)
         plt.draw();
         plt.legend()
         
