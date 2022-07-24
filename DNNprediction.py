@@ -82,7 +82,6 @@ def dnn_main(mean, scale, num_pred, num_repeat, data_n, use_cuda):
     import time
 
     t1 = time.time()
-    loss_list = []
     for n_epoch in range(training_epochs):
         train_loss, train_acc = 0.0, 0.0
         for step, (batch_x, batch_y) in enumerate(loader):
@@ -103,7 +102,6 @@ def dnn_main(mean, scale, num_pred, num_repeat, data_n, use_cuda):
         print('[%03d/%03d] %2.2f sec(s)  Acc: %3.6f Loss: %3.6f'
             % (n_epoch + 1, training_epochs, time.time() - t1, train_acc / torch_dataset.__len__(),
                  train_loss / torch_dataset.__len__()))
-        loss_list.append(train_loss)
         
     dnn = dnn.eval()
     cycleprediction.loss_curve(data_n, mean, scale, num_pred, num_repeat, 1, True, dnn, use_cuda)
