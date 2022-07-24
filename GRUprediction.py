@@ -16,7 +16,6 @@ import DNNprediction
 
 
 class GRU(nn.Module):
-
     def __init__(self, input_dim, hidden_num, output_dim, layer_num, use_cuda):
         super(GRU, self).__init__()
         self.use_cuda = use_cuda
@@ -46,6 +45,7 @@ class GRU(nn.Module):
             if 'gru.weight' in name:
                 init.orthogonal_(param, gain)
 
+               
 def predict(net, testX, use_cuda=False):
     net = net.eval()
     testX = testX.view(-1, outputSteps, train_x.size(1))
@@ -53,6 +53,7 @@ def predict(net, testX, use_cuda=False):
         testX = testX.cuda()
         net = net.cuda()
     return net(testX)
+
 
 if __name__ == '__main__':
     use_cuda = True if torch.cuda.is_available() else False
@@ -110,7 +111,6 @@ if __name__ == '__main__':
         start = t()
         prev = start
         
-        loss_list, cycle_y = [], []
         for epoch in range(max_epochs):
             train_acc = 0.0
             val_acc = 0.0
@@ -125,8 +125,6 @@ if __name__ == '__main__':
                     y = y.cuda()
     
                 prediction = net(x)
-                p_actual = prediction.cpu().view(-1, out_dim).data.numpy() * scale + mean
-                p_actual = Variable(torch.from_numpy(p_actual))
                 optimizer.zero_grad()
                 loss = criterion(prediction, y)
                 if torch.cuda.is_available():
@@ -134,10 +132,6 @@ if __name__ == '__main__':
     
                 loss.backward()
                 optimizer.step()
-                loss_actual = criterion(p_actual, y_actual)
-                loss_list.append(loss_actual.item())
-                steps = np.linspace(1 + batch_idx * batch_size, (batch_idx+1) * batch_size, batch_size,
-                                    dtype=np.float32, endpoint=False)
     
                 now = t()
                 loss_val = loss.item()
