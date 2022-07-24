@@ -1,0 +1,12 @@
+ST-GRU:
+  outputSteps: 1
+  maxEpochs: 100
+  data_type: 'measures'
+  numStartPoints: 2
+  numRepeat: 1
+  numPredSteps: 1
+  learning_rate: 0.01
+  weight_decay: 0.000001
+  num_hidden: 300 # 600
+  batch_size: 128 # 354
+  
