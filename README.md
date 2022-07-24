@@ -14,6 +14,6 @@ We provide `DNNprediction` for prediction of future steps on S-DNN model,
 
 `cycleprediction` is the implementation of the MSE evalution based on cyclical pattern.  
 ### Datasets
-750 frame stereo images are provided in `measuresPhantom.mat` and `measuresInvivo.mat`.  
+750 frame stereo images are provided in `measuresPhantom` and `measuresInvivo`.  
 
 Frame 1 to 600 from both in vivo and phantom dataset are used for training and frame 601 to 750 for testing.
